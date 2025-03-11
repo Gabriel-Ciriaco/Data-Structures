@@ -41,7 +41,7 @@ void printString(DynamicString * strDim)
 
     while (atual)
     {
-        printf("%c\n", atual->c);
+        printf("%c", atual->c);
 
         atual = atual->prox;
     }
@@ -79,4 +79,15 @@ void insertChar(char c, DynamicString * strDim)
 
     atual->ant = anterior;
     anterior->prox = atual;
+}
+
+void copyString(DynamicString * output, DynamicString * input)
+{
+    DynamicString * copia = input->prox;
+
+    while (copia)
+    {
+        insertChar(copia->c, output);
+        copia = copia->prox;
+    }
 }

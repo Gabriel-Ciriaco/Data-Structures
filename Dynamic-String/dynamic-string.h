@@ -14,4 +14,6 @@ int stringLen(DynamicString * strDim);
 
 void insertChar(char c, DynamicString * strDim);
 
+void copyString(DynamicString * output, DynamicString * input);
+
 #endif // DYNAMIC-STRING_H

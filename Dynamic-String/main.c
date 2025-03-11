@@ -12,14 +12,21 @@ struct dynamicString {
 int main()
 {
     DynamicString * head = createString();
+    DynamicString * head2 = createString();
 
     insertChar('g', head);
     insertChar('a', head);
     insertChar('b', head);
-    insertChar('r', head);
-    insertChar('i', head);
-    insertChar('e', head);
-    insertChar('l', head);
+
+    insertChar('r', head2);
+    insertChar('i', head2);
+    insertChar('e', head2);
+    insertChar('l', head2);
+
+    printString(head);
+
+    printf("\n");
+    copyString(head, head2);
 
     printString(head);
 
