@@ -13,8 +13,19 @@ int main()
 {
     DynamicString * head = createString();
 
-    printf("%d", stringLen(head));
-    free(head);
+    insertChar('g', head);
+    insertChar('a', head);
+    insertChar('b', head);
+    insertChar('r', head);
+    insertChar('i', head);
+    insertChar('e', head);
+    insertChar('l', head);
+
+    printString(head);
+
+    printf("\nTamanho da string: %d\n", stringLen(head));
+
+    cleanString(head);
 
     return 0;
 }

@@ -23,7 +23,7 @@ DynamicString * createString()
 void cleanString(DynamicString * strDim)
 {
     DynamicString * atual = strDim->prox;
-    DynamicString * anterior;
+    DynamicString * anterior = strDim;
 
     while (atual)
     {
@@ -56,7 +56,27 @@ int stringLen(DynamicString * strDim)
     while (atual)
     {
         counter++;
+        atual = atual->prox;
     }
 
     return counter;
+}
+
+void insertChar(char c, DynamicString * strDim)
+{
+    DynamicString * atual = strDim->prox;
+    DynamicString * anterior = strDim;
+
+    while (atual)
+    {
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    atual = createString();
+
+    atual->c = c;
+
+    atual->ant = anterior;
+    anterior->prox = atual;
 }

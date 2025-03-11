@@ -12,4 +12,6 @@ void printString(DynamicString * strDim);
 
 int stringLen(DynamicString * strDim);
 
+void insertChar(char c, DynamicString * strDim);
+
 #endif // DYNAMIC-STRING_H
