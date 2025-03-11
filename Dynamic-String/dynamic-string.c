@@ -1,4 +1,5 @@
 #include "dynamic-string.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 
@@ -32,4 +33,30 @@ void cleanString(DynamicString * strDim)
 
         atual = atual->prox;
     }
+}
+
+void printString(DynamicString * strDim)
+{
+    DynamicString * atual = strDim->prox;
+
+    while (atual)
+    {
+        printf("%c\n", atual->c);
+
+        atual = atual->prox;
+    }
+}
+
+int stringLen(DynamicString * strDim)
+{
+    int counter = 0;
+
+    DynamicString * atual = strDim->prox;
+
+    while (atual)
+    {
+        counter++;
+    }
+
+    return counter;
 }

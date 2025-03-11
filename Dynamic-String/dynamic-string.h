@@ -10,6 +10,6 @@ void cleanString(DynamicString * strDim);
 
 void printString(DynamicString * strDim);
 
-void stringLen(DynamicString * strDim);
+int stringLen(DynamicString * strDim);
 
 #endif // DYNAMIC-STRING_H

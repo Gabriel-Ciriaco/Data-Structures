@@ -13,6 +13,7 @@ int main()
 {
     DynamicString * head = createString();
 
+    printf("%d", stringLen(head));
     free(head);
 
     return 0;
