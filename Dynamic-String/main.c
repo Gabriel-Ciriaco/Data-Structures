@@ -3,36 +3,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct dynamicString {
-    char c;
-    struct dynamicString * ant;
-    struct dynamicString * prox;
-};
 
 int main()
 {
-    DynamicString * head = createString();
-    DynamicString * head2 = createString();
+    DynamicString strDim = createString();
+    DynamicString strDim2 = createString();
 
-    insertChar('g', head);
-    insertChar('a', head);
-    insertChar('b', head);
+    insertChar('g', &strDim);
+    insertChar('a', &strDim);
+    insertChar('b', &strDim);
+    insertChar('r', &strDim);
+    insertChar('i', &strDim);
+    insertChar('e', &strDim);
+    insertChar('l', &strDim);
 
-    insertChar('r', head2);
-    insertChar('i', head2);
-    insertChar('e', head2);
-    insertChar('l', head2);
+    printString(&strDim);
 
-    printString(head);
+    copyString(&strDim2, &strDim);
 
-    printf("\n");
-    copyString(head, head2);
-
-    printString(head);
-
-    printf("\nTamanho da string: %d\n", stringLen(head));
-
-    cleanString(head);
+    cleanString(&strDim);
+    cleanString(&strDim2);
 
     return 0;
 }

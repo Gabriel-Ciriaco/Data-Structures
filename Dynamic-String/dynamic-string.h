@@ -1,10 +1,25 @@
 #ifndef DYNAMIC_STRING_H
 #define DYNAMIC_STRING_H
 
-typedef struct dynamicString DynamicString;
+typedef struct node {
+    char c;
+
+    struct node * prev;
+    struct node * next;
+} Node;
+
+typedef struct dynamicString
+{
+    Node * head;
+    Node * tail;
+
+    int length;
+} DynamicString;
 
 
-DynamicString * createString();
+Node * createNode(char c);
+
+DynamicString createString();
 
 void cleanString(DynamicString * strDim);
 

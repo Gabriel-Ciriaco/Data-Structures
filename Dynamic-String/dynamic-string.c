@@ -3,91 +3,103 @@
 #include <stdlib.h>
 
 
-struct dynamicString {
-    char c;
-    struct dynamicString * ant;
-    struct dynamicString * prox;
-};
-
-
-DynamicString * createString()
+Node * createNode(char c)
 {
-    DynamicString * strDim = (DynamicString * ) malloc(sizeof(DynamicString));
+    Node * newNode = (Node *) malloc(sizeof(Node));
 
-    strDim->ant = NULL;
-    strDim->prox = NULL;
+    newNode->c = c;
+
+    newNode->prev = NULL;
+    newNode->next = NULL;
+}
+
+DynamicString createString()
+{
+    DynamicString strDim;
+
+    strDim.head = NULL;
+    strDim.tail = NULL;
+
+    strDim.length = 0;
 
     return strDim;
 }
 
 void cleanString(DynamicString * strDim)
 {
-    DynamicString * atual = strDim->prox;
-    DynamicString * anterior = strDim;
+    if (!strDim->head) return;
 
-    while (atual)
+    Node * cur = strDim->head;
+    Node * prev;
+
+    while (cur)
     {
-        anterior = atual;
+        prev = cur;
 
-        free(anterior);
+        cur = cur->next;
 
-        atual = atual->prox;
+        free(prev);
     }
+
 }
 
 void printString(DynamicString * strDim)
 {
-    DynamicString * atual = strDim->prox;
+    if (!strDim->head) return;
 
-    while (atual)
+    Node * cur = strDim->head;
+
+    while (cur)
     {
-        printf("%c", atual->c);
+        printf("%c", cur->c);
 
-        atual = atual->prox;
+        cur = cur->next;
     }
+
 }
 
 int stringLen(DynamicString * strDim)
 {
-    int counter = 0;
-
-    DynamicString * atual = strDim->prox;
-
-    while (atual)
-    {
-        counter++;
-        atual = atual->prox;
-    }
-
-    return counter;
+    return strDim->length;
 }
 
 void insertChar(char c, DynamicString * strDim)
 {
-    DynamicString * atual = strDim->prox;
-    DynamicString * anterior = strDim;
+    Node * newNode = createNode(c);
 
-    while (atual)
+    if (!strDim->head)
     {
-        anterior = atual;
-        atual = atual->prox;
+        strDim->head = newNode;
+        strDim->tail = newNode;
+    }
+    else
+    {
+        newNode->prev = strDim->tail;
+
+        (strDim->tail)->next = newNode;
+
+        strDim->tail = newNode;
     }
 
-    atual = createString();
-
-    atual->c = c;
-
-    atual->ant = anterior;
-    anterior->prox = atual;
+    strDim->length++;
 }
 
 void copyString(DynamicString * output, DynamicString * input)
 {
-    DynamicString * copia = input->prox;
+    Node * cur = input->head;
+    Node * out = output->head;
 
-    while (copia)
+    while (cur && out)
     {
-        insertChar(copia->c, output);
-        copia = copia->prox;
+        out->c = cur->c;
+
+        cur = cur->next;
+        out = out->next;
     }
+
+    while (cur)
+    {
+
+    }
+
 }
