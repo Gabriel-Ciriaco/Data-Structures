@@ -22,18 +22,11 @@ int main()
     concatString(&strDim3, &strDim2, &strDim);
 
     printString(&strDim3);
+
+    removeChars(&strDim3, 2, 1);
+
     printf("\n");
-
-    printf("\nHead: %d e Tail: %d\n",
-            strDim3.head,
-            strDim3.tail);
-    removeChars(&strDim3, 3, 7);
-
     printString(&strDim3);
-
-    printf("\nHead: %d e Tail: %d\n",
-            strDim3.head,
-            strDim3.tail);
 
     cleanString(&strDim);
     cleanString(&strDim2);

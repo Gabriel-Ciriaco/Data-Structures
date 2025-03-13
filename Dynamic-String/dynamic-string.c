@@ -139,15 +139,16 @@ void removeChars(DynamicString * strDim, int start, int nro)
         {
             nodeToRemove = cur;
 
-            if (nodeToRemove->next)
-            {
-                (nodeToRemove->next)->prev = (nodeToRemove->prev);
-            }
-
             if (nodeToRemove->prev)
             {
                 (nodeToRemove->prev)->next = nodeToRemove->next;
             }
+
+            if (nodeToRemove->next)
+            {
+                (nodeToRemove->next)->prev = nodeToRemove->prev;
+            }
+
 
             if (nodeToRemove == strDim->head)
             {
