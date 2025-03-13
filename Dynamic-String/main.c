@@ -8,21 +8,36 @@ int main()
 {
     DynamicString strDim = createString();
     DynamicString strDim2 = createString();
+    DynamicString strDim3 = createString();
 
     insertChar('g', &strDim);
     insertChar('a', &strDim);
     insertChar('b', &strDim);
-    insertChar('r', &strDim);
-    insertChar('i', &strDim);
-    insertChar('e', &strDim);
-    insertChar('l', &strDim);
 
-    printString(&strDim);
+    insertChar('r', &strDim2);
+    insertChar('i', &strDim2);
+    insertChar('e', &strDim2);
+    insertChar('l', &strDim2);
 
-    copyString(&strDim2, &strDim);
+    concatString(&strDim3, &strDim2, &strDim);
+
+    printString(&strDim3);
+    printf("\n");
+
+    printf("\nHead: %d e Tail: %d\n",
+            strDim3.head,
+            strDim3.tail);
+    removeChars(&strDim3, 3, 7);
+
+    printString(&strDim3);
+
+    printf("\nHead: %d e Tail: %d\n",
+            strDim3.head,
+            strDim3.tail);
 
     cleanString(&strDim);
     cleanString(&strDim2);
+    cleanString(&strDim3);
 
     return 0;
 }

@@ -31,4 +31,8 @@ void insertChar(char c, DynamicString * strDim);
 
 void copyString(DynamicString * output, DynamicString * input);
 
+void concatString(DynamicString * str3, DynamicString * str2, DynamicString * str1);
+
+void removeChars(DynamicString * strDim, int start, int nro);
+
 #endif // DYNAMIC-STRING_H

@@ -30,17 +30,20 @@ void cleanString(DynamicString * strDim)
     if (!strDim->head) return;
 
     Node * cur = strDim->head;
-    Node * prev;
 
-    while (cur)
+    while (cur->next)
     {
-        prev = cur;
+        if (cur->prev)
+        {
+            free(cur->prev);
+            cur->prev = NULL;
+        }
 
         cur = cur->next;
-
-        free(prev);
     }
 
+    free(cur);
+    cur = NULL;
 }
 
 void printString(DynamicString * strDim)
@@ -99,7 +102,74 @@ void copyString(DynamicString * output, DynamicString * input)
 
     while (cur)
     {
+        insertChar(cur->c, output);
 
+        cur = cur->next;
     }
 
+}
+
+void concatString(DynamicString * str3,
+                  DynamicString * str2,
+                  DynamicString * str1)
+{
+    copyString(str3, str1);
+
+    Node * concat = str2->head;
+
+    while(concat)
+    {
+        insertChar(concat->c, str3);
+
+        concat = concat->next;
+    }
+}
+
+void removeChars(DynamicString * strDim, int start, int nro)
+{
+    Node * cur = strDim->head;
+    Node * nodeToRemove = NULL;
+
+    int pos = 0;
+
+    while (cur)
+    {
+        if (pos >= start &&
+            pos < (start + nro))
+        {
+            nodeToRemove = cur;
+
+            if (nodeToRemove->next)
+            {
+                (nodeToRemove->next)->prev = (nodeToRemove->prev);
+            }
+
+            if (nodeToRemove->prev)
+            {
+                (nodeToRemove->prev)->next = nodeToRemove->next;
+            }
+
+            if (nodeToRemove == strDim->head)
+            {
+                strDim->head = nodeToRemove->next;
+            }
+
+            if(nodeToRemove == strDim->tail)
+            {
+                strDim->tail = nodeToRemove->prev;
+            }
+        }
+
+        cur = cur->next;
+
+        if(nodeToRemove)
+        {
+            free(nodeToRemove);
+
+            // Prevent acess to deleted space.
+            nodeToRemove = NULL;
+        }
+
+        pos++;
+    }
 }
