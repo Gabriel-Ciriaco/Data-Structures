@@ -169,6 +169,8 @@ void removeChars(DynamicString * strDim, int start, int nro)
 
             // Prevent acess to deleted space.
             nodeToRemove = NULL;
+
+            strDim->length--;
         }
 
         pos++;

@@ -22,11 +22,13 @@ int main()
     concatString(&strDim3, &strDim2, &strDim);
 
     printString(&strDim3);
+    printf("\nTamanho da String: %d\n", stringLen(&strDim3));
 
-    removeChars(&strDim3, 2, 1);
+    removeChars(&strDim3, 3, 4);
 
     printf("\n");
     printString(&strDim3);
+    printf("\nTamanho da String: %d\n", stringLen(&strDim3));
 
     cleanString(&strDim);
     cleanString(&strDim2);
