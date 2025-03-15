@@ -1,6 +1,8 @@
 #ifndef DYNAMIC_STRING_H
 #define DYNAMIC_STRING_H
 
+#include <stdbool.h>
+
 typedef struct node {
     char c;
 
@@ -34,5 +36,11 @@ void copyString(DynamicString * output, DynamicString * input);
 void concatString(DynamicString * str3, DynamicString * str2, DynamicString * str1);
 
 void removeChars(DynamicString * strDim, int start, int nro);
+
+void insertCharPos(DynamicString * strDim, DynamicString * substring, int start);
+
+bool strIsLess(DynamicString * str1, DynamicString * str2);
+
+bool strIsEqual(DynamicString * str1, DynamicString * str2);
 
 #endif // DYNAMIC-STRING_H

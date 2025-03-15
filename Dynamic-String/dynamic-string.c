@@ -1,4 +1,5 @@
 #include "dynamic-string.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -175,4 +176,27 @@ void removeChars(DynamicString * strDim, int start, int nro)
 
         pos++;
     }
+}
+
+bool strIsLess(DynamicString * str1, DynamicString * str2)
+{
+    return (str1->length < str2->length);
+}
+
+bool strIsEqual(DynamicString * str1, DynamicString * str2)
+{
+    if (str1->length != str2->length) return false;
+
+    Node * node1 = str1->head;
+    Node * node2 = str2->head;
+
+    while (node1 && node2)
+    {
+        if (node1->c != node2->c) return false;
+
+        node1 = node1->next;
+        node2 = node2->next;
+    }
+
+    return true;
 }
