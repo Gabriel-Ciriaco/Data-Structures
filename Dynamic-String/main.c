@@ -34,6 +34,8 @@ int main()
 
     printf("\nTamanho da String: %d\n", stringLen(&strDim3));
 
+    printf("\nStrdim2 em strdim3 posicao: %d\n", searchString(&strDim3, &strDim4));
+
     removeChars(&strDim3, 3, 4);
 
     printf("\n");

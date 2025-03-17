@@ -43,4 +43,6 @@ bool strIsLess(DynamicString * str1, DynamicString * str2);
 
 bool strIsEqual(DynamicString * str1, DynamicString * str2);
 
+int searchString(DynamicString * strDim, DynamicString * searchStr);
+
 #endif // DYNAMIC-STRING_H

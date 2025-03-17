@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 Node * createNode(char c)
@@ -199,4 +200,43 @@ bool strIsEqual(DynamicString * str1, DynamicString * str2)
     }
 
     return true;
+}
+
+int searchString(DynamicString * strDim, DynamicString * searchStr)
+{
+	const int NOT_FOUND = 0;
+
+	int local = 0;
+
+	if (!strIsLess(searchStr, strDim) &&
+        !strIsEqual(searchStr, strDim)) return NOT_FOUND;
+
+	Node * cur = strDim->head;
+	Node * subCur = searchStr->head;
+
+	int equalChars = 0;
+
+	while (cur && subCur)
+	{
+		if (cur->c == subCur->c)
+		{
+			equalChars++;
+			subCur = subCur->next;
+		}
+		else if (equalChars > 0 && equalChars != stringLen(searchStr))
+		{
+			equalChars = 0;
+			subCur = searchStr->head;
+		}
+		else if (equalChars == stringLen(searchStr))
+		{
+			// Retorna a posição de inicio da substring.
+			return (local - stringLen(searchStr)) + 1;
+		}
+
+		cur = cur->next;
+		local++;
+	}
+
+	return (equalChars == stringLen(searchStr)) ? (local - stringLen(searchStr)) + 1 : NOT_FOUND;
 }
