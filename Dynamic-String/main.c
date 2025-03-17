@@ -20,6 +20,12 @@ int main()
     insertChar('e', &strDim2);
     insertChar('l', &strDim2);
 
+    printf("\nInserir strDim2 em strDim: \n");
+    insertSubstring(&strDim, &strDim2, 3);
+
+    printString(&strDim);
+    printf("\n");
+
     concatString(&strDim3, &strDim2, &strDim);
 
     printf("\nStrdim3: ");
@@ -34,7 +40,7 @@ int main()
 
     printf("\nTamanho da String: %d\n", stringLen(&strDim3));
 
-    printf("\nStrdim2 em strdim3 posicao: %d\n", searchString(&strDim3, &strDim4));
+    printf("\nStrdim2 em strdim3 posicao: %d\n", searchString(&strDim3, &strDim2));
 
     removeChars(&strDim3, 3, 4);
 
