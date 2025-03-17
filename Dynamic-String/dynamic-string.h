@@ -37,7 +37,7 @@ void concatString(DynamicString * str3, DynamicString * str2, DynamicString * st
 
 void removeChars(DynamicString * strDim, int start, int nro);
 
-void insertCharPos(DynamicString * strDim, DynamicString * substring, int start);
+void insertSubstring(DynamicString * strDim, DynamicString * substring, int start);
 
 bool strIsLess(DynamicString * str1, DynamicString * str2);
 
