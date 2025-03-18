@@ -188,9 +188,9 @@ void insertSubstring(DynamicString * strDim, DynamicString * substring, int star
 
     int pos = 0;
 
-    while (cur)
+    while (cur && subCur)
     {
-        while (pos >= start && subCur)
+        while (pos >= start)
         {
             newNode = createNode(subCur->c);
 
@@ -211,9 +211,6 @@ void insertSubstring(DynamicString * strDim, DynamicString * substring, int star
 
             subCur = subCur->next;
         }
-
-        // Stop executing, if we already added the string!
-        if (!subCur) return;
 
         cur = cur->next;
         pos++;
@@ -278,7 +275,7 @@ int searchString(DynamicString * strDim, DynamicString * searchStr)
 		}
 		else if (equalChars == stringLen(searchStr))
 		{
-			// Retorna a posição de inicio da substring.
+			// Retorna a posiÃ§Ã£o de inicio da substring.
 			return local - stringLen(searchStr);
 		}
 
