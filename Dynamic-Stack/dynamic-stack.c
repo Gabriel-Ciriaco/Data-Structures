@@ -40,11 +40,12 @@ void push(int value, DynamicStack * dStack)
     }
 }
 
-void pop(DynamicStack * dStack)
+int pop(DynamicStack * dStack)
 {
     if (!dStack->top)
     {
         printf("\nThe Dynamic Stack is empty!\n");
+        return -1;
     }
     else
     {
@@ -52,7 +53,11 @@ void pop(DynamicStack * dStack)
 
         dStack->top = cur->next;
 
+        int topValue = cur->value;
+
         free(cur);
+
+        return topValue;
     }
 }
 
