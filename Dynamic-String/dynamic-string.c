@@ -179,6 +179,51 @@ void removeChars(DynamicString * strDim, int start, int nro)
     }
 }
 
+void insertSubstring(DynamicString * strDim, DynamicString * substring, int start)
+{
+    Node * cur = strDim->head;
+    Node * subCur = substring->head;
+
+    Node * newNode = NULL;
+
+    int pos = 0;
+
+    while (cur && subCur)
+    {
+        while (pos >= start)
+        {
+            newNode = createNode(subCur->c);
+
+            if (cur == strDim->head)
+            {
+                strDim->head = newNode;
+            }
+
+            if (cur->prev)
+            {
+                (cur->prev)->next = newNode;
+            }
+
+            newNode->prev = cur->prev;
+            newNode->next = cur;
+
+            cur->prev = newNode;
+
+            subCur = subCur->next;
+        }
+
+        cur = cur->next;
+        pos++;
+    }
+
+    // Insert the remaining chars.
+    while (subCur)
+    {
+        insertChar(subCur->c, strDim);
+        subCur = subCur->next;
+    }
+}
+
 bool strIsLess(DynamicString * str1, DynamicString * str2)
 {
     return (str1->length < str2->length);
@@ -204,7 +249,7 @@ bool strIsEqual(DynamicString * str1, DynamicString * str2)
 
 int searchString(DynamicString * strDim, DynamicString * searchStr)
 {
-	const int NOT_FOUND = 0;
+	const int NOT_FOUND = -1;
 
 	int local = 0;
 
@@ -230,13 +275,13 @@ int searchString(DynamicString * strDim, DynamicString * searchStr)
 		}
 		else if (equalChars == stringLen(searchStr))
 		{
-			// Retorna a posição de inicio da substring.
-			return (local - stringLen(searchStr)) + 1;
+			// Retorna a posiÃ§Ã£o de inicio da substring.
+			return local - stringLen(searchStr);
 		}
 
 		cur = cur->next;
 		local++;
 	}
 
-	return (equalChars == stringLen(searchStr)) ? (local - stringLen(searchStr)) + 1 : NOT_FOUND;
+	return (equalChars == stringLen(searchStr)) ? local - stringLen(searchStr) : NOT_FOUND;
 }
