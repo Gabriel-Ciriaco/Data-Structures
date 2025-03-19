@@ -1,6 +1,7 @@
 #ifndef DYNAMIC-STACK_H
 #define DYNAMIC-STACK_H
 
+#include <stdbool.h>
 
 typedef struct node
 {
@@ -16,7 +17,9 @@ typedef struct dynamicStack
 
 Node * createNode(int value);
 
-void createDynamicStack();
+DynamicStack createDynamicStack();
+
+bool isStackEmpty(DynamicStack * dStack);
 
 void push(int value, DynamicStack * dStack);
 

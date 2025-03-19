@@ -1,6 +1,7 @@
 #include "dynamic-stack.h"
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 Node * createNode(int value)
@@ -13,13 +14,18 @@ Node * createNode(int value)
     return newNode;
 }
 
-void createDynamicStack()
+DynamicStack createDynamicStack()
 {
     DynamicStack newStack;
 
-    newStack->top = NULL;
+    newStack.top = NULL;
 
     return newStack;
+}
+
+bool isStackEmpty(DynamicStack * dStack)
+{
+    return !(dStack->top);
 }
 
 void push(int value, DynamicStack * dStack)
@@ -42,12 +48,7 @@ void push(int value, DynamicStack * dStack)
 
 int pop(DynamicStack * dStack)
 {
-    if (!dStack->top)
-    {
-        printf("\nThe Dynamic Stack is empty!\n");
-        return -1;
-    }
-    else
+    if(!isStackEmpty(dStack))
     {
         Node * cur = dStack->top;
 
@@ -61,3 +62,12 @@ int pop(DynamicStack * dStack)
     }
 }
 
+void cleanStack(DynamicStack * dStack)
+{
+    if (!dStack->top) return;
+
+    while (dStack->top)
+    {
+        pop(dStack);
+    }
+}
