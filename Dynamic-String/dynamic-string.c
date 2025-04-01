@@ -190,7 +190,7 @@ void insertSubstring(DynamicString * strDim, DynamicString * substring, int star
 
     while (cur && subCur)
     {
-        while (pos >= start)
+        while (pos >= start && subCur)
         {
             newNode = createNode(subCur->c);
 
