@@ -7,8 +7,8 @@ typedef struct node
     int row;
     int col;
 
-    struct no * next_row;
-    struct no * next_col;
+    struct no * nextRowElement;
+    struct no * nextColElement;
 } Node;
 
 typedef struct crossedList
@@ -18,13 +18,13 @@ typedef struct crossedList
 } CrossedList;
 
 
-Node * createNode(int value, int row, int col);
+Node * createNode(int value, int rowPos, int colPos);
 
 CrossedList createCrossedList(int n, int m);
 
 void printCrossedList(CrossedList * cList);
 
-void insertCElement(int element, int row, int col, CrossedList * cList);
+void insertCElement(int element, int rowPos, int colPos, CrossedList * cList);
 
 void removeCElement(int element, CrossedList * cList);
 
