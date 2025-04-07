@@ -20,11 +20,11 @@ typedef struct crossedList
 
 Node * createNode(int value, int row, int col);
 
-CrossedList createCrossedList();
+CrossedList createCrossedList(int n, int m);
 
 void printCrossedList(CrossedList * cList);
 
-void insertCElement(int element, CrossedList * cList);
+void insertCElement(int element, int row, int col, CrossedList * cList);
 
 void removeCElement(int element, CrossedList * cList);
 

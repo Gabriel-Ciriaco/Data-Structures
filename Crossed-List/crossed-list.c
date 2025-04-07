@@ -15,13 +15,30 @@ Node * createNode(int value, int row, int col)
     return newNode;
 }
 
-CrossedList createCrossedList()
+CrossedList createCrossedList(int n, int m)
 {
     CrossedList newList;
 
-    newList.row = NULL;
-    newList.col = NULL;
+    newList.row = (Node *) malloc(n * sizeof(Node));
+    newList.col = (Node *) malloc(m * sizeof(Node));
+
+    for (int i = 0; i < n; i++)
+    {
+        newList.row[i] = NULL;
+    }
+
+    for (int j = 0; i < m; j++)
+    {
+        newList.col[j] = NULL;
+    }
 
     return newList;
 }
 
+void insertCElement(int element,
+                    int row,
+                    int col,
+                    CrossedList * cList)
+{
+
+}
