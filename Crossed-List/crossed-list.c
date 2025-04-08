@@ -1,5 +1,8 @@
 #include "crossed-list.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
 Node * createNode(int value, int rowPos, int colPos)
 {
     Node * newNode = (Node *) malloc(sizeof(Node));
@@ -30,7 +33,7 @@ CrossedList createCrossedList(int n, int m)
         newList.row[i] = NULL;
     }
 
-    for (int j = 0; i < m; j++)
+    for (int j = 0; j < m; j++)
     {
         newList.col[j] = NULL;
     }
@@ -42,12 +45,13 @@ void printCrossedList(CrossedList * cList)
 {
     Node * cur = NULL;
 
-    for (int i = 0; i < cList.rowSize; i++)
+    printf("\n");
+    for (int i = 0; i < cList->rowSize; i++)
     {
         cur = cList->row[i];
         printf("\n");
 
-        for (int j = 0; j < cList.colSize; j++)
+        for (int j = 0; j < cList->colSize; j++)
         {
             if(cur && cur->col == j)
             {
@@ -56,10 +60,11 @@ void printCrossedList(CrossedList * cList)
             }
             else
             {
-                printf(" NULL"); // There is no element there.
+                printf(" 0"); // There is no element there.
             }
         }
     }
+    printf("\n");
 }
 
 void insertCElement(int element,
@@ -105,7 +110,7 @@ void insertCElement(int element,
             else // Insert at the middle.
             {
                 newElement->nextRowElement = rowElement;
-                lastRow->nextRowElement = newElement;
+                lastRowElement->nextRowElement = newElement;
             }
         }
         else // Insert at the end.
@@ -155,35 +160,46 @@ void insertCElement(int element,
 
 }
 
-void cleanCrossedList(CrossedList * cList)
+void removeCElement(int rowPos, int colPos, CrossedList * cList)
 {
-    Node * cur = NULL;
+    Node * removeElement = NULL;
 
-    for (int i = 0; i < cList.rowSize; i++)
+    for (int i = 0; i < cList->rowSize; i++)
     {
-        for (int j = 0; j < cList.colSize; j++)
+        for (int j = 0; j < cList->rowSize; j++)
         {
-            if (cur && cur->col == j)
-            {
-                free(cList->col[j]);
+            removeElement = cList->col[j];
 
-                // Prevent to access a deleted memory
+            if(removeElement &&
+               removeElement->row == rowPos &&
+               removeElement->col == colPos)
+            {
+                free(removeElement);
+
+                // Prevent access to deleted memory.
+                cList->row[i] = NULL;
                 cList->col[j] = NULL;
 
-                cur = cur->nextColElement;
+                return;
             }
         }
+    }
+}
 
-        free(cList->row[i]);
-
-        // Prevent to access a deleted memory.
-        cList->row[i] == NULL;
+void cleanCrossedList(CrossedList * cList)
+{
+    for (int i = 0; i < cList->rowSize; i++)
+    {
+        for (int j = 0; j < cList->colSize; j++)
+        {
+            removeCElement(i, j, cList);
+        }
     }
 
     free(cList->row);
     free(cList->col);
 
-    // Prevent access to a deleted memory.
+    // Prevent access to deleted memory;
     cList->row = NULL;
     cList->col = NULL;
 }

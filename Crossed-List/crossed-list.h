@@ -29,7 +29,7 @@ void printCrossedList(CrossedList * cList);
 
 void insertCElement(int element, int rowPos, int colPos, CrossedList * cList);
 
-void removeCElement(int element, CrossedList * cList);
+void removeCElement(int rowPos, int colPos, CrossedList * cList);
 
 void cleanCrossedList(CrossedList * cList);
 
