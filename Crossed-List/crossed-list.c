@@ -43,24 +43,25 @@ CrossedList createCrossedList(int n, int m)
 
 void printCrossedList(CrossedList * cList)
 {
-    Node * cur = NULL;
+    Node * curRowElement = NULL;
 
     printf("\n");
     for (int i = 0; i < cList->rowSize; i++)
     {
-        cur = cList->row[i];
+        curRowElement = cList->row[i];
         printf("\n");
 
         for (int j = 0; j < cList->colSize; j++)
         {
-            if(cur && cur->col == j)
+            if (curRowElement && curRowElement->col == j)
             {
-                printf(" %d", cur->value);
-                cur = cur->nextColElement;
+                printf(" %d", curRowElement->value);
+
+                curRowElement = curRowElement->nextRowElement;
             }
             else
             {
-                printf(" 0"); // There is no element there.
+                printf(" 0");
             }
         }
     }
@@ -74,14 +75,14 @@ void insertCElement(int element,
 {
     Node * newElement = createNode(element, rowPos, colPos);
 
-    // The element at the current row position.
-    Node * rowElement = cList->row[rowPos];
+    // The first element at the current row position.
+    Node * firstRowElement = cList->row[rowPos];
 
     // The element at the current col position.
-    Node * colElement = cList->col[colPos];
+    Node * firstColElement = cList->col[colPos];
 
-    // There is no element at the row position.
-    if (!rowElement)
+    // If we don't have any element at the row.
+    if (!firstRowElement)
     {
         cList->row[rowPos] = newElement;
     }
@@ -89,75 +90,79 @@ void insertCElement(int element,
     {
         Node * lastRowElement = NULL;
 
-        while(rowElement && rowElement->col < colPos)
+        while (firstRowElement && firstRowElement->col < colPos)
         {
-            lastRowElement = rowElement;
+            lastRowElement = firstRowElement;
 
-            rowElement = rowElement->nextRowElement;
+            firstRowElement = firstRowElement->nextRowElement;
         }
 
-        if (rowElement)
+        if(firstRowElement)
         {
-            if(rowElement->col == colPos)
+            if (firstRowElement->col == colPos)
             {
-                printf("\nThere is already an element at this collumn!\n");
+                printf("\nThere is already an element at this column position!\n");
             }
-            else if(!lastRowElement) // Insertion at the start.
+            else if(!lastRowElement) // Insert at start of the row.
             {
-                newElement->nextRowElement = cList->row[rowPos];
+                newElement->nextRowElement = firstRowElement;
+
+                // New element becomes the first element of the row.
                 cList->row[rowPos] = newElement;
             }
-            else // Insert at the middle.
+            else // Insert at middle of the row.
             {
-                newElement->nextRowElement = rowElement;
                 lastRowElement->nextRowElement = newElement;
+                newElement->nextRowElement = firstRowElement;
             }
         }
-        else // Insert at the end.
+        else // Insert at the end of the row.
         {
             lastRowElement->nextRowElement = newElement;
         }
-
     }
 
-    if (!colElement)
+    // If there is no element at the column.
+    if (!firstColElement)
     {
         cList->col[colPos] = newElement;
     }
-    else
+    else // There is an element at the column.
     {
         Node * lastColElement = NULL;
 
-        while(colElement && colElement->row < rowPos)
+        while (firstColElement && firstColElement->row < rowPos)
         {
-            lastColElement = colElement;
+            lastColElement = firstColElement;
 
-            lastColElement = colElement->nextColElement;
+            firstColElement = firstColElement->nextColElement;
         }
 
-        if (colElement)
+        if(firstColElement)
         {
-            if (colElement->row == rowPos)
+            if (firstColElement->row == rowPos)
             {
-                printf("\nThere is already an element at this row!\n");
+                printf("\nThere is already an element at this row position!\n");
             }
-            else if (!lastColElement) // Insert at the start.
+            else if (!lastColElement) // Insert at start of the row.
             {
-                newElement->nextColElement = cList->col[colPos];
+                newElement->nextColElement = firstColElement;
+
+                // New Element becomes the first element of the col.
                 cList->col[colPos] = newElement;
             }
-            else // Insert at the middle.
+            else // Insert at the middle of the row.
             {
-                newElement->nextColElement = colElement;
                 lastColElement->nextColElement = newElement;
+                newElement->nextColElement = firstColElement;
             }
+
         }
-        else // Insert at the end.
+        else // Insert at the end of the col.
         {
             lastColElement->nextColElement = newElement;
         }
     }
-
 }
 
 void removeCElement(int rowPos, int colPos, CrossedList * cList)
