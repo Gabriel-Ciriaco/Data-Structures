@@ -19,6 +19,9 @@ CrossedList createCrossedList(int n, int m)
 {
     CrossedList newList;
 
+    newList.rowSize = n;
+    newList.colSize = m;
+
     newList.row = (Node *) malloc(n * sizeof(Node));
     newList.col = (Node *) malloc(m * sizeof(Node));
 
@@ -33,6 +36,30 @@ CrossedList createCrossedList(int n, int m)
     }
 
     return newList;
+}
+
+void printCrossedList(CrossedList * cList)
+{
+    Node * cur = NULL;
+
+    for (int i = 0; i < cList.rowSize; i++)
+    {
+        cur = cList->row[i];
+        printf("\n");
+
+        for (int j = 0; j < cList.colSize; j++)
+        {
+            if(cur && cur->col == j)
+            {
+                printf(" %d", cur->value);
+                cur = cur->nextColElement;
+            }
+            else
+            {
+                printf(" NULL"); // There is no element there.
+            }
+        }
+    }
 }
 
 void insertCElement(int element,
@@ -83,7 +110,7 @@ void insertCElement(int element,
         }
         else // Insert at the end.
         {
-            newElement->nextRowElement = newElement;
+            lastRowElement->nextRowElement = newElement;
         }
 
     }
@@ -96,7 +123,7 @@ void insertCElement(int element,
     {
         Node * lastColElement = NULL;
 
-        while(colElement && colElement->row = rowPos)
+        while(colElement && colElement->row < rowPos)
         {
             lastColElement = colElement;
 
@@ -105,10 +132,30 @@ void insertCElement(int element,
 
         if (colElement)
         {
-
+            if (colElement->row == rowPos)
+            {
+                printf("\nThere is already an element at this row!\n");
+            }
+            else if (!lastColElement) // Insert at the start.
+            {
+                newElement->nextColElement = cList->col[colPos];
+                cList->col[colPos] = newElement;
+            }
+            else // Insert at the middle.
+            {
+                newElement->nextColElement = colElement;
+                lastColElement->nextColElement = newElement;
+            }
         }
-
-
+        else // Insert at the end.
+        {
+            lastColElement->nextColElement = newElement;
+        }
     }
+
+}
+
+void cleanCrossedList(CrossedList * cList)
+{
 
 }

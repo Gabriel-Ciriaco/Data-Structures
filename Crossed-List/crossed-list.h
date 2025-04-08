@@ -13,6 +13,9 @@ typedef struct node
 
 typedef struct crossedList
 {
+    int rowSize;
+    int colSize;
+
     Node * row;
     Node * col;
 } CrossedList;
@@ -27,5 +30,7 @@ void printCrossedList(CrossedList * cList);
 void insertCElement(int element, int rowPos, int colPos, CrossedList * cList);
 
 void removeCElement(int element, CrossedList * cList);
+
+void cleanCrossedList(CrossedList * cList);
 
 #endif // CROSSED-LIST_H
