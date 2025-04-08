@@ -238,6 +238,8 @@ void cleanCrossedList(CrossedList * cList)
             curRowElement = curRowElement->nextRowElement;
 
             free(lastRowElement);
+
+            lastRowElement = NULL;
         }
 
         cList->row[i] = NULL;
