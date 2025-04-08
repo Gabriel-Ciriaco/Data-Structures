@@ -22,8 +22,8 @@ CrossedList createCrossedList(int n, int m)
     newList.rowSize = n;
     newList.colSize = m;
 
-    newList.row = (Node *) malloc(n * sizeof(Node));
-    newList.col = (Node *) malloc(m * sizeof(Node));
+    newList.row = (Node **) malloc(n * sizeof(Node *));
+    newList.col = (Node **) malloc(m * sizeof(Node *));
 
     for (int i = 0; i < n; i++)
     {
@@ -157,5 +157,33 @@ void insertCElement(int element,
 
 void cleanCrossedList(CrossedList * cList)
 {
+    Node * cur = NULL;
 
+    for (int i = 0; i < cList.rowSize; i++)
+    {
+        for (int j = 0; j < cList.colSize; j++)
+        {
+            if (cur && cur->col == j)
+            {
+                free(cList->col[j]);
+
+                // Prevent to access a deleted memory
+                cList->col[j] = NULL;
+
+                cur = cur->nextColElement;
+            }
+        }
+
+        free(cList->row[i]);
+
+        // Prevent to access a deleted memory.
+        cList->row[i] == NULL;
+    }
+
+    free(cList->row);
+    free(cList->col);
+
+    // Prevent access to a deleted memory.
+    cList->row = NULL;
+    cList->col = NULL;
 }

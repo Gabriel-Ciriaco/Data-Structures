@@ -16,8 +16,8 @@ typedef struct crossedList
     int rowSize;
     int colSize;
 
-    Node * row;
-    Node * col;
+    Node ** row;
+    Node ** col;
 } CrossedList;
 
 
