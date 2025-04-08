@@ -191,7 +191,7 @@ void removeCElement(int rowPos, int colPos, CrossedList * cList)
             lastRowElement->nextRowElement = removeElement->nextRowElement;
         }
 
-        // This is the first element of our column.
+        // If this is the first element of our column.
         if(cList->col[colPos] == removeElement)
         {
             cList->col[colPos] = removeElement->nextColElement;
@@ -229,6 +229,7 @@ void cleanCrossedList(CrossedList * cList)
 
     for (int i = 0; i < cList->rowSize; i++)
     {
+        // Get the first element of the row.
         curRowElement = cList->row[i];
 
         while(curRowElement)
@@ -238,6 +239,14 @@ void cleanCrossedList(CrossedList * cList)
 
             free(lastRowElement);
         }
+
+        cList->row[i] = NULL;
+    }
+
+    // Prevent to access deleted memory.
+    for (int j = 0; j < cList->colSize; j++)
+    {
+        cList->col[j] = NULL;
     }
 
     free(cList->row);
@@ -246,4 +255,22 @@ void cleanCrossedList(CrossedList * cList)
     // Prevent access to deleted memory;
     cList->row = NULL;
     cList->col = NULL;
+}
+
+void sumKtoCrossedList(int k, CrossedList * cList)
+{
+    Node * curRowElement = NULL;
+
+    for (int i = 0; i < cList->rowSize; i++)
+    {
+        // Get the first element of the row.
+        curRowElement = cList->row[i];
+
+        while (curRowElement)
+        {
+            curRowElement->value += k;
+
+            curRowElement = curRowElement->nextRowElement;
+        }
+    }
 }

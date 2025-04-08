@@ -33,4 +33,6 @@ void removeCElement(int rowPos, int colPos, CrossedList * cList);
 
 void cleanCrossedList(CrossedList * cList);
 
+void sumKtoCrossedList(int k, CrossedList * cList);
+
 #endif // CROSSED-LIST_H
