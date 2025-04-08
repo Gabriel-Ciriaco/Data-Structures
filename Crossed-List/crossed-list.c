@@ -61,7 +61,7 @@ void printCrossedList(CrossedList * cList)
             }
             else
             {
-                printf(" 0");
+                printf(" 0"); // We print 0 as if it was a null value.
             }
         }
     }
@@ -167,37 +167,76 @@ void insertCElement(int element,
 
 void removeCElement(int rowPos, int colPos, CrossedList * cList)
 {
-    Node * removeElement = NULL;
+    Node * removeElement = cList->row[rowPos];
+    Node * lastRowElement = NULL;
 
-    for (int i = 0; i < cList->rowSize; i++)
+    while(removeElement && removeElement->col < colPos)
     {
-        for (int j = 0; j < cList->rowSize; j++)
+        lastRowElement = removeElement;
+
+        removeElement = removeElement->nextRowElement;
+    }
+
+
+    // We found the element we are looking for.
+    if (removeElement && removeElement->col == colPos)
+    {
+        // If this is the first element of the row.
+        if (!lastRowElement)
         {
-            removeElement = cList->col[j];
-
-            if(removeElement &&
-               removeElement->row == rowPos &&
-               removeElement->col == colPos)
-            {
-                free(removeElement);
-
-                // Prevent access to deleted memory.
-                cList->row[i] = NULL;
-                cList->col[j] = NULL;
-
-                return;
-            }
+            cList->row[rowPos] = removeElement->nextRowElement;
         }
+        else
+        {
+            lastRowElement->nextRowElement = removeElement->nextRowElement;
+        }
+
+        // This is the first element of our column.
+        if(cList->col[colPos] == removeElement)
+        {
+            cList->col[colPos] = removeElement->nextColElement;
+        }
+        else
+        {
+            Node * curColElement = cList->col[colPos];
+            Node * lastColElement = NULL;
+
+            while (curColElement != removeElement)
+            {
+                lastColElement = curColElement;
+
+                curColElement = curColElement->nextColElement;
+            }
+
+            lastColElement->nextColElement = curColElement->nextColElement;
+        }
+
+        free(removeElement);
+
+        // Prevent access to deleted memory.
+        removeElement = NULL;
+    }
+    else
+    {
+        printf("\nThere is no element at this position.\n");
     }
 }
 
 void cleanCrossedList(CrossedList * cList)
 {
+    Node * curRowElement = NULL;
+    Node * lastRowElement = NULL;
+
     for (int i = 0; i < cList->rowSize; i++)
     {
-        for (int j = 0; j < cList->colSize; j++)
+        curRowElement = cList->row[i];
+
+        while(curRowElement)
         {
-            removeCElement(i, j, cList);
+            lastRowElement = curRowElement;
+            curRowElement = curRowElement->nextRowElement;
+
+            free(lastRowElement);
         }
     }
 

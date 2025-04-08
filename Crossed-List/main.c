@@ -12,14 +12,15 @@ int main()
     insertCElement(2, 0, 0, &cList);
     insertCElement(3, 0, 2, &cList);
     insertCElement(4, 1, 1, &cList);
-    insertCElement(5, 8, 4, &cList);
-    insertCElement(6, 3, 9, &cList);
+    insertCElement(5, 1, 2, &cList);
+    insertCElement(6, 1, 0, &cList);
+    insertCElement(7, 4, 9, &cList);
 
 
 
     printCrossedList(&cList);
 
-    removeCElement(0, 0, &cList);
+    removeCElement(1, 1, &cList);
 
     printCrossedList(&cList);
 
