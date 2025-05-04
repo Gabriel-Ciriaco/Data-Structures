@@ -30,11 +30,9 @@ bool isDQueueEmpty(DynamicQueue * dQueue)
 
 void push(int value, DynamicQueue * dQueue)
 {
-    if (isDynamicQueueEmpty(dQueue)) return;
-
     Node * newNode = createNode(value);
 
-    if (!dQueue->top)
+    if (isDQueueEmpty(dQueue))
     {
         dQueue->top = newNode;
         dQueue->bottom = newNode;
