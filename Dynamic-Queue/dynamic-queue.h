@@ -16,15 +16,15 @@ typedef struct dynamicQueue
 } DynamicQueue;
 
 
-Node createNode(int value);
+Node * createNode(int value);
 
 DynamicQueue createDynamicQueue();
 
-bool isQueueEmpty(DynamicQueue * dQueue);
+bool isDQueueEmpty(DynamicQueue * dQueue);
 
-void push(int value);
+void push(int value, DynamicQueue * dQueue);
 
-int popLeft();
+int popLeft(DynamicQueue * dQueue);
 
 void cleanDynamicQueue(DynamicQueue * dQueue);
 
