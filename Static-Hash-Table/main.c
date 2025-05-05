@@ -14,6 +14,8 @@ int main()
     insertValue("goat", &table);
     insertValue("goat", &table);
 
+    removeValue("goat", &table);
+
     printf("%s %d %d", table.table[42].value, table.table[42].nextNode, table.table[table.table[42].nextNode].nextNode);
 
     return 0;

@@ -45,6 +45,8 @@ int isPosEmpty(int pos, StatichHashTable * sHTable)
     return strcmp(sHTable->table[pos].value, "") == 0;
 }
 
+
+
 void insertValue(char * value, StatichHashTable * sHTable)
 {
     int value_index = hash_function(value);
@@ -67,4 +69,75 @@ void insertValue(char * value, StatichHashTable * sHTable)
             }
         }
     }
+}
+
+void removeValue(char * value, StatichHashTable * sHTable)
+{
+    int value_index = hash_function(value);
+
+    if (!isPosEmpty(value_index, sHTable))
+    {
+        int nextIndex = sHTable->table[value_index].nextNode;
+        int curIndex = value_index;
+
+        if (strcmp(value, sHTable->table[curIndex].value) == 0)
+        {
+            if (nextIndex == -1)
+            {
+                strcpy(sHTable->table[curIndex].value, "");
+            }
+            else
+            {
+                while (nextIndex != -1)
+                {
+                    sHTable->table[curIndex] = sHTable->table[nextIndex];
+
+                    curIndex = nextIndex;
+                    nextIndex = sHTable->table[nextIndex].nextNode;
+                }
+
+                // Clean the last element of the collision.
+                strcpy(sHTable->table[curIndex].value, "");
+            }
+
+            return;
+        }
+        else
+        {
+            while(nextIndex != -1)
+            {
+                if (strcmp(value, sHTable->table[curIndex].value) == 0) break;
+
+                curIndex = nextIndex;
+                nextIndex = sHTable->table[nextIndex].nextNode;
+            }
+
+            if (strcmp(value, sHTable->table[curIndex].value) == 0)
+            {
+
+                if (nextIndex == -1)
+                {
+                    strcpy(sHTable->table[curIndex].value, "");
+                }
+                else
+                {
+                    while (nextIndex != -1)
+                    {
+                        sHTable->table[curIndex] = sHTable->table[nextIndex];
+
+                        curIndex = nextIndex;
+                        nextIndex = sHTable->table[nextIndex].nextNode;
+                    }
+
+                    // Clean the last element of the collision.
+                    strcpy(sHTable->table[curIndex].value, "");
+                }
+
+                return;
+            }
+        }
+
+    }
+
+    printf("\nValue not found: %s\n", value);
 }
