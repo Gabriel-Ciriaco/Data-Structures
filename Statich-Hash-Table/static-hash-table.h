@@ -2,20 +2,29 @@
 #define STATIC-HASH-TABLE_H
 
 #define MAX_HASH_TABLE 100
-#define PRIME_NUMBER 97
+#define PRIME_NUMBER 211
+#define MAX_STR 100
+
+typedef struct node
+{
+    char value[MAX_STR];
+    int nextNode;
+} Node;
 
 typedef struct staticHashTable
 {
-    char * table[MAX_HASH_TABLE];
+    Node table[MAX_HASH_TABLE][1];
 
 } StatichHashTable;
 
-int hash_function(char * value);
+StatichHashTable createHashTable();
 
-void insertValue(int key);
+Node * createNode(char * value);
 
-void removevalue(int key);
+int hash_function(char * key);
 
-void getValue(int key);
+void insertValue(char * value, StatichHashTable * sHTable);
+
+void removeValue(char * value, StatichHashTable * sHTable);
 
 #endif // STATIC-HASH-TABLE_H
