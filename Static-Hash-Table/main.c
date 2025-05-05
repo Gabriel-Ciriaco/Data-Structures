@@ -9,5 +9,11 @@ int main()
     printf("Hash value: %d\n", hash_function("test"));
     printf("Hash value: %d\n", hash_function("lucas"));
 
+    StatichHashTable table = createHashTable();
+
+    insertValue("goat", &table);
+
+    printf("%s", table.table[0]->value);
+
     return 0;
 }

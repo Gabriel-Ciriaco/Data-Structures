@@ -8,11 +8,6 @@ StatichHashTable createHashTable()
 {
     StatichHashTable newTable;
 
-    for (int i = 0; i < MAX_HASH_TABLE; i++)
-    {
-        newTable.table[i] = NULL;
-    }
-
     return newTable;
 }
 
