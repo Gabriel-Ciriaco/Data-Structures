@@ -13,15 +13,18 @@ typedef struct node
 
 typedef struct staticHashTable
 {
-    Node table[MAX_HASH_TABLE][1];
+    Node table[MAX_HASH_TABLE];
 
 } StatichHashTable;
 
+
+Node createNode(char * value);
+
 StatichHashTable createHashTable();
 
-Node * createNode(char * value);
-
 int hash_function(char * key);
+
+int isPosEmpty(int pos, StatichHashTable * sHTable);
 
 void insertValue(char * value, StatichHashTable * sHTable);
 

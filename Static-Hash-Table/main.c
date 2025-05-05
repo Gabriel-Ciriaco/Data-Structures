@@ -6,14 +6,15 @@
 int main()
 {
     printf("Hash value: %d\n", hash_function("goat"));
-    printf("Hash value: %d\n", hash_function("test"));
+    printf("Hash value: %d\n", hash_function("goAt"));
     printf("Hash value: %d\n", hash_function("lucas"));
 
     StatichHashTable table = createHashTable();
 
     insertValue("goat", &table);
+    insertValue("goat", &table);
 
-    printf("%s", table.table[0]->value);
+    printf("%s %d %d", table.table[42].value, table.table[42].nextNode, table.table[table.table[42].nextNode].nextNode);
 
     return 0;
 }

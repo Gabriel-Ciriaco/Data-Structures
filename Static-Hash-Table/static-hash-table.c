@@ -4,12 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-StatichHashTable createHashTable()
-{
-    StatichHashTable newTable;
-
-    return newTable;
-}
 
 Node createNode(char * value)
 {
@@ -17,9 +11,21 @@ Node createNode(char * value)
 
     strcpy(newNode.value, value);
 
-    newNode.value = -1;
+    newNode.nextNode = -1;
 
     return newNode;
+}
+
+StatichHashTable createHashTable()
+{
+    StatichHashTable newTable;
+
+    for (int i = 0; i < MAX_HASH_TABLE; i++)
+    {
+        newTable.table[i] = createNode("");
+    }
+
+    return newTable;
 }
 
 int hash_function(char * key)
@@ -34,11 +40,18 @@ int hash_function(char * key)
     return sum % MAX_HASH_TABLE;
 }
 
+int isPosEmpty(int pos, StatichHashTable * sHTable)
+{
+    return strcmp(sHTable->table[pos].value, "") == 0;
+}
+
 void insertValue(char * value, StatichHashTable * sHTable)
 {
     int value_index = hash_function(value);
 
-    if(!sHTable->table[value_index])
+    Node elementFromPos = sHTable->table[value_index];
+
+    if(isPosEmpty(value_index, sHTable))
     {
         sHTable->table[value_index] = createNode(value);
     }
@@ -46,7 +59,7 @@ void insertValue(char * value, StatichHashTable * sHTable)
     {
         for (int i = value_index + 1; i < MAX_HASH_TABLE; i++)
         {
-            if (!sHTable->table[i])
+            if (isPosEmpty(i, sHTable))
             {
                 sHTable->table[value_index].nextNode = i;
                 sHTable->table[i] = createNode(value);
