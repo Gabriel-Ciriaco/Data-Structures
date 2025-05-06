@@ -12,11 +12,15 @@ int main()
     StatichHashTable table = createHashTable();
 
     insertValue("goat", &table);
+    printf("%d\n", table.table[42].nextNode);
     insertValue("goat", &table);
+    printf("%d\n", table.table[42].nextNode);
+    insertValue("goat", &table);
+    printf("%d\n", table.table[43].nextNode);
 
     removeValue("goat", &table);
 
-    printf("%s %d %d", table.table[42].value, table.table[42].nextNode, table.table[table.table[42].nextNode].nextNode);
+    printf("%d", table.table[42].nextNode);
 
     return 0;
 }

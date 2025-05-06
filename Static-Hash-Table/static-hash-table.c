@@ -5,13 +5,14 @@
 #include <string.h>
 
 
-Node createNode(char * value)
+Node createNode(char * key, char * value)
 {
     Node newNode;
 
+    strcpy(newNode.key, key);
     strcpy(newNode.value, value);
 
-    newNode.nextNode = -1;
+    newNode.nextNode = TERMINAL_NODE;
 
     return newNode;
 }
@@ -22,7 +23,7 @@ StatichHashTable createHashTable()
 
     for (int i = 0; i < MAX_HASH_TABLE; i++)
     {
-        newTable.table[i] = createNode("");
+        newTable.table[i] = createNode(NULL_VALUE);
     }
 
     return newTable;
@@ -40,104 +41,45 @@ int hash_function(char * key)
     return sum % MAX_HASH_TABLE;
 }
 
-int isPosEmpty(int pos, StatichHashTable * sHTable)
+bool isPosEmpty(int pos, StatichHashTable * sHTable)
 {
-    return strcmp(sHTable->table[pos].value, "") == 0;
+    return strcmp(sHTable->table[pos].value, NULL_VALUE) == 0;
 }
 
-
-
-void insertValue(char * value, StatichHashTable * sHTable)
+void insertValue(char * key, char * value, StatichHashTable * sHTable)
 {
-    int value_index = hash_function(value);
+    int index = hash_function(key);
 
-    Node elementFromPos = sHTable->table[value_index];
+    if (!isPosEmpty(index, sHTable))
+    {
+        int curIndex = index;
+        int nextIndex = sHTable->table[curIndex].nextNode;
 
-    if(isPosEmpty(value_index, sHTable))
-    {
-        sHTable->table[value_index] = createNode(value);
-    }
-    else
-    {
-        for (int i = value_index + 1; i < MAX_HASH_TABLE; i++)
+        while (nextIndex != TERMINAL_NODE)
+        {
+            curIndex = nextIndex;
+            nextIndex = sHTable->table[nextIndex].nextNode;
+        }
+
+        for (int i = curIndex; i < MAX_HASH_TABLE; i++)
         {
             if (isPosEmpty(i, sHTable))
             {
-                sHTable->table[value_index].nextNode = i;
-                sHTable->table[i] = createNode(value);
-                break;
-            }
-        }
-    }
-}
+                sHTable->table[nextIndex].nextNode = i;
 
-void removeValue(char * value, StatichHashTable * sHTable)
-{
-    int value_index = hash_function(value);
-
-    if (!isPosEmpty(value_index, sHTable))
-    {
-        int nextIndex = sHTable->table[value_index].nextNode;
-        int curIndex = value_index;
-
-        if (strcmp(value, sHTable->table[curIndex].value) == 0)
-        {
-            if (nextIndex == -1)
-            {
-                strcpy(sHTable->table[curIndex].value, "");
-            }
-            else
-            {
-                while (nextIndex != -1)
-                {
-                    sHTable->table[curIndex] = sHTable->table[nextIndex];
-
-                    curIndex = nextIndex;
-                    nextIndex = sHTable->table[nextIndex].nextNode;
-                }
-
-                // Clean the last element of the collision.
-                strcpy(sHTable->table[curIndex].value, "");
-            }
-
-            return;
-        }
-        else
-        {
-            while(nextIndex != -1)
-            {
-                if (strcmp(value, sHTable->table[curIndex].value) == 0) break;
-
-                curIndex = nextIndex;
-                nextIndex = sHTable->table[nextIndex].nextNode;
-            }
-
-            if (strcmp(value, sHTable->table[curIndex].value) == 0)
-            {
-
-                if (nextIndex == -1)
-                {
-                    strcpy(sHTable->table[curIndex].value, "");
-                }
-                else
-                {
-                    while (nextIndex != -1)
-                    {
-                        sHTable->table[curIndex] = sHTable->table[nextIndex];
-
-                        curIndex = nextIndex;
-                        nextIndex = sHTable->table[nextIndex].nextNode;
-                    }
-
-                    // Clean the last element of the collision.
-                    strcpy(sHTable->table[curIndex].value, "");
-                }
+                sHTable->table[i] = createNode(key, value);
 
                 return;
             }
         }
-
     }
+    else
+    {
+        sHTable->table[index] = createNode(key, value);
+    }
+}
 
-    printf("\nValue not found: %s\n", value);
+void removeValue(char * key, char * value, StatichHashTable * sHTable)
+{
+
 }

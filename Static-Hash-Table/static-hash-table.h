@@ -5,9 +5,14 @@
 #define PRIME_NUMBER 211
 #define MAX_STR 100
 
+#define NULL_VALUE ""
+#define TERMINAL_NODE -1
+
 typedef struct node
 {
+    char key[MAX_STR];
     char value[MAX_STR];
+
     int nextNode;
 } Node;
 
@@ -18,16 +23,14 @@ typedef struct staticHashTable
 } StatichHashTable;
 
 
-Node createNode(char * value);
+Node createNode(char * key, char * value);
 
 StatichHashTable createHashTable();
 
 int hash_function(char * key);
 
-int isPosEmpty(int pos, StatichHashTable * sHTable);
+void insertValue(char * key, char * value, StatichHashTable * sHTable);
 
-void insertValue(char * value, StatichHashTable * sHTable);
-
-void removeValue(char * value, StatichHashTable * sHTable);
+void removeValue(char * key, char * value, StatichHashTable * sHTable);
 
 #endif // STATIC-HASH-TABLE_H
