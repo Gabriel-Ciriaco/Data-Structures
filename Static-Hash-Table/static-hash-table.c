@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 
 
@@ -23,7 +24,7 @@ StatichHashTable createHashTable()
 
     for (int i = 0; i < MAX_HASH_TABLE; i++)
     {
-        newTable.table[i] = createNode(NULL_VALUE);
+        newTable.table[i] = createNode(NULL_VALUE, NULL_VALUE);
     }
 
     return newTable;
@@ -43,7 +44,7 @@ int hash_function(char * key)
 
 bool isPosEmpty(int pos, StatichHashTable * sHTable)
 {
-    return strcmp(sHTable->table[pos].value, NULL_VALUE) == 0;
+    return strcmp(sHTable->table[pos].key, NULL_VALUE) == 0;
 }
 
 void insertValue(char * key, char * value, StatichHashTable * sHTable)
@@ -65,7 +66,7 @@ void insertValue(char * key, char * value, StatichHashTable * sHTable)
         {
             if (isPosEmpty(i, sHTable))
             {
-                sHTable->table[nextIndex].nextNode = i;
+                sHTable->table[curIndex].nextNode = i;
 
                 sHTable->table[i] = createNode(key, value);
 

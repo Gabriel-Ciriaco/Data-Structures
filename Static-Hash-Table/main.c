@@ -9,18 +9,15 @@ int main()
     printf("Hash value: %d\n", hash_function("goAt"));
     printf("Hash value: %d\n", hash_function("lucas"));
 
-    StatichHashTable table = createHashTable();
+    StatichHashTable sHTable = createHashTable();
 
-    insertValue("goat", &table);
-    printf("%d\n", table.table[42].nextNode);
-    insertValue("goat", &table);
-    printf("%d\n", table.table[42].nextNode);
-    insertValue("goat", &table);
-    printf("%d\n", table.table[43].nextNode);
+    insertValue("goat", "igor", &sHTable);
+    insertValue("goat", "gabriel", &sHTable);
+    insertValue("goat", "carol", &sHTable);
 
-    removeValue("goat", &table);
 
-    printf("%d", table.table[42].nextNode);
+    printf("%d %d %d\n", sHTable.table[42].nextNode, sHTable.table[43].nextNode, sHTable.table[44].nextNode);
+    printf("%s %s %s\n", sHTable.table[42].value, sHTable.table[43].value, sHTable.table[44].value);
 
     return 0;
 }
