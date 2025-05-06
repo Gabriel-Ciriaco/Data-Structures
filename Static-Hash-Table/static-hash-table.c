@@ -58,6 +58,7 @@ void insertValue(char * key, char * value, StatichHashTable * sHTable)
 
         while (nextIndex != TERMINAL_NODE)
         {
+            //if (strcmp(sHTable[curIndex]))
             curIndex = nextIndex;
             nextIndex = sHTable->table[nextIndex].nextNode;
         }
@@ -82,5 +83,89 @@ void insertValue(char * key, char * value, StatichHashTable * sHTable)
 
 void removeValue(char * key, char * value, StatichHashTable * sHTable)
 {
+    int index = hash_function(key);
+
+    if (!isPosEmpty(index, sHTable))
+    {
+        int curIndex = index;
+        int nextIndex = sHTable->table[curIndex].nextNode;
+
+        // If the element to remove is the first.
+        if (strcmp(sHTable->table[curIndex].value, value) == 0)
+        {
+            // If the element to remove is the only one.
+            if (nextIndex == TERMINAL_NODE)
+            {
+                sHTable->table[curIndex] = createNode(NULL_VALUE, NULL_VALUE);
+            }
+            else
+            {
+                // Move next elements above.
+                while (nextIndex != TERMINAL_NODE)
+                {
+                    strcpy(sHTable->table[curIndex].value, sHTable->table[nextIndex].value);
+
+                    if (sHTable->table[nextIndex].nextNode == TERMINAL_NODE)
+                    {
+                        sHTable->table[curIndex].nextNode = TERMINAL_NODE;
+                    }
+
+                    curIndex = nextIndex;
+                    nextIndex = sHTable->table[nextIndex].nextNode;
+                }
+
+                sHTable->table[curIndex] = createNode(NULL_VALUE, NULL_VALUE);
+            }
+
+            return;
+        }
+        else
+        {
+            // Find the element to remove at the collision list.
+            while (nextIndex != TERMINAL_NODE)
+            {
+                if (strcmp(sHTable->table[nextIndex].value, value) == 0) break;
+
+                curIndex = nextIndex;
+                nextIndex = sHTable->table[nextIndex].nextNode;
+            }
+
+            // If we found the element to remove at the collision list.
+            if (strcmp(sHTable->table[nextIndex].value, value) == 0)
+            {
+                // If the element to remove is the last one.
+                if (sHTable->table[nextIndex].nextNode == TERMINAL_NODE)
+                {
+                    sHTable->table[curIndex].nextNode = TERMINAL_NODE;
+                    sHTable->table[nextIndex] = createNode(NULL_VALUE, NULL_VALUE);
+                }
+                else
+                {
+                    // Move next elements to removed pos.
+                    curIndex = nextIndex;
+
+                    while (nextIndex != TERMINAL_NODE)
+                    {
+                        strcpy(sHTable->table[curIndex].value, sHTable->table[nextIndex].value);
+
+                        if (sHTable->table[nextIndex].nextNode == TERMINAL_NODE)
+                        {
+                            sHTable->table[curIndex].nextNode = TERMINAL_NODE;
+                        }
+
+                        curIndex = nextIndex;
+                        nextIndex = sHTable->table[nextIndex].nextNode;
+                    }
+
+                    sHTable->table[curIndex] = createNode(NULL_VALUE, NULL_VALUE);
+                }
+
+                return;
+            }
+        }
+
+    }
+
+    printf("\nKey not found: %s\n", key);
 
 }

@@ -16,8 +16,24 @@ int main()
     insertValue("goat", "carol", &sHTable);
 
 
-    printf("%d %d %d\n", sHTable.table[42].nextNode, sHTable.table[43].nextNode, sHTable.table[44].nextNode);
     printf("%s %s %s\n", sHTable.table[42].value, sHTable.table[43].value, sHTable.table[44].value);
+    printf("%d %d %d\n", sHTable.table[42].nextNode, sHTable.table[43].nextNode, sHTable.table[44].nextNode);
+
+    removeValue("goat", "gabriel", &sHTable);
+
+    printf("%s %s %s\n", sHTable.table[42].value, sHTable.table[43].value, sHTable.table[44].value);
+    printf("%d %d %d\n", sHTable.table[42].nextNode, sHTable.table[43].nextNode, sHTable.table[44].nextNode);
+
+    removeValue("goat", "igor", &sHTable);
+
+    printf("%s %s %s\n", sHTable.table[42].value, sHTable.table[43].value, sHTable.table[44].value);
+    printf("%d %d %d\n", sHTable.table[42].nextNode, sHTable.table[43].nextNode, sHTable.table[44].nextNode);
+
+    removeValue("goat", "carol", &sHTable);
+
+    printf("%s %s %s\n", sHTable.table[42].value, sHTable.table[43].value, sHTable.table[44].value);
+    printf("%d %d %d\n", sHTable.table[42].nextNode, sHTable.table[43].nextNode, sHTable.table[44].nextNode);
+
 
     return 0;
 }
