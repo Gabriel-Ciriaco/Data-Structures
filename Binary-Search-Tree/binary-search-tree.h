@@ -19,11 +19,17 @@ Node * createNode(int value);
 
 BST createBST();
 
-void insertValueBST(Node * root, int value);
+Node * insertValueBST(Node * root, int value);
 
-void removeValueBST(Node * root, int value);
+Node * removeValueBST(Node * root, int value);
 
 int getValueBST(Node * root, int value);
+
+void printPreOrder(Node * root);
+
+void printInOrder(Node * root);
+
+void printPostOrder(Node * root);
 
 
 #endif // BINARY-SEARCH-TREE_H
